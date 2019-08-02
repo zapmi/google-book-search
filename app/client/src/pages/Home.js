@@ -1,28 +1,34 @@
 import React, { Component } from "react";
-import DeleteBtn from "../components/DeleteBtn";
 import Jumbotron from "../components/Jumbotron";
+import Card from "../components/Card";
+import Form from "../components/Form";
+import Book from "../components/Book";
+import Footer from "../components/Footer";
 import API from "../utils/API";
-import { Link } from "react-router-dom";
 import { Col, Row, Container } from "../components/Grid";
-import { List, ListItem } from "../components/List";
-import { Input, TextArea, FormBtn } from "../components/Form";
+import { List } from "../components/List";
 
-class Books extends Component {
+class Home extends Component {
   state = {
     books: [],
-    title: "",
-    author: "",
-    synopsis: ""
+    q: "",
+    message: "Search for a book"
   };
 
-  componentDidMount() {
-    this.loadBooks();
-  }
+  handleInputChange = event => {
+    const { name, value } = event.target;
+    this.setState({
+      [name]: value
+    });
+  };
 
-  loadBooks = () => {
-    API.getBooks()
+
+  getBooks = () => {
+    API.getBooks(this.state.q)
       .then(res =>
-        this.setState({ books: res.data, title: "", author: "", synopsis: "" })
+        this.setState({
+          books: res.data
+        })
       )
       .catch(err => console.log(err));
   };
@@ -33,12 +39,7 @@ class Books extends Component {
       .catch(err => console.log(err));
   };
 
-  handleInputChange = event => {
-    const { name, value } = event.target;
-    this.setState({
-      [name]: value
-    });
-  };
+
 
   handleFormSubmit = event => {
     event.preventDefault();
@@ -106,8 +107,8 @@ class Books extends Component {
                 ))}
               </List>
             ) : (
-              <h3>No Results to Display</h3>
-            )}
+                <h3>No Results to Display</h3>
+              )}
           </Col>
         </Row>
       </Container>
