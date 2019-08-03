@@ -9,19 +9,19 @@ import { List } from "../components/List";
 
 class Saved extends Component {
   state = {
-    book: []
+    books: []
   };
-  // When this component mounts, grab the book with the _id of this.props.match.params.id
-  // e.g. localhost:3000/books/599dcb67f0f16317844583fc
+
   componentDidMount() {
     this.getSavedBooks();
   }
 
   getSavedBooks = () => {
     API.getSavedBooks()
-      .then(res => this.setState({
-        books: res.data
-      })
+      .then(res =>
+        this.setState({
+          books: res.data
+        })
       )
       .catch(err => console.log(err));
   };
@@ -32,14 +32,14 @@ class Saved extends Component {
 
   render() {
     return (
-      <Container fluid>
+      <Container>
         <Row>
           <Col size="md-12">
             <Jumbotron>
               <h1 className="text-center">
-                <strong>(React) Google Books Search</strong>
+                <strong>Google Books Search & Save</strong>
               </h1>
-              <h2 className="text-center">Search for Books and Save them.</h2>
+              <h2 className="text-center">Search for a Book. Save for later.</h2>
             </Jumbotron>
           </Col>
         </Row>
@@ -50,20 +50,21 @@ class Saved extends Component {
                 <List>
                   {this.state.books.map(book => (
                     <Book
-                    key={book._id}
-                    title={book.title}
-                    subtitle={book.subtitle}
-                    link={book.link}
-                    authors={book.authors.join(", ")}
-                    description={book.description}
-                    image={book.image}
-                    Button={() => (
-                      <button
-                      onClick={() => this.handleBookDelete(book._id)}
-                      className="btn btn-danger ml-2">
-                        Delete
-                      </button>
-                    )}
+                      key={book._id}
+                      title={book.title}
+                      subtitle={book.subtitle}
+                      link={book.link}
+                      authors={book.authors.join(", ")}
+                      description={book.description}
+                      image={book.image}
+                      Button={() => (
+                        <button
+                          onClick={() => this.handleBookDelete(book._id)}
+                          className="btn btn-danger ml-2"
+                        >
+                          Delete
+                        </button>
+                      )}
                     />
                   ))}
                 </List>
@@ -74,8 +75,7 @@ class Saved extends Component {
           </Col>
         </Row>
         <Footer />
-        </Container>
-        
+      </Container>
     );
   }
 }

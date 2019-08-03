@@ -58,8 +58,9 @@ class Home extends Component {
         <Row>
           <Col size="md-12">
             <Jumbotron>
-              <h1>What Books Should I Read?</h1>
-              <h2 className="text-center">Search for books Save books to your list.</h2>
+            
+              <h1 className="text-center">Google Books Search & Save</h1>
+             <h2 className="text-center">Search for a Book. Save for later.</h2> 
             </Jumbotron>
           </Col>
           <Col size="md-12">
